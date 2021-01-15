@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
     const elementsTransition = Array.from(document.querySelectorAll(".transition_core_el"))
 
-    let visibleSlideTransition = 0;
+    let visibleSlideTransition = 1;
     console.log(visibleSlideTransition)
 
     elementsTransition[visibleSlideTransition].classList.add("transition_core_visible");
@@ -148,5 +148,100 @@ document.addEventListener("DOMContentLoaded", function () {
     nextTransition.addEventListener("click", showNextTransition)
     prevTransition.addEventListener("click", showPrevTransition)
 
+//gallery slider
+
+    const nextGallery = document.querySelector(".gallery_next")
+    const prevGallery = document.querySelector(".gallery_prev")
+
+    const activeGalleryElement = document.querySelector(".gallery_core_active")
+
+    const elementsGallery = Array.from(document.querySelectorAll(".gallery_core_thumbnails_el"))
+
+    let visibleSlideGallery = 0
+
+    elementsGallery[visibleSlideGallery].classList.add("gallery_core_thumbnails_el_active")
+
+
+    let activeBackground = window.getComputedStyle(elementsGallery[visibleSlideGallery]).getPropertyValue('background-image');
+
+    console.log(activeBackground)
+
+    activeGalleryElement.style.backgroundImage = activeBackground
+
+    // activeGalleryElement.style.backgroundImage = "url('images/cars/jj-jordan-jtZsFCvXS_g-unsplash.jpg')"
+
+    const showNextGallery = () => {
+        elementsGallery[visibleSlideGallery].classList.remove("gallery_core_thumbnails_el_active")
+        visibleSlideGallery += 1
+        
+
+        if (visibleSlideGallery >= elementsGallery.length) {
+            visibleSlideGallery = 0
+            activeBackground = window.getComputedStyle(elementsGallery[visibleSlideGallery]).getPropertyValue('background-image');
+            activeGalleryElement.style.backgroundImage = activeBackground
+            document.querySelector(".gallery_core_thumbnails").classList.toggle("gallery_core_thumbnails_right")
+            elementsGallery[visibleSlideGallery].classList.add("gallery_core_thumbnails_el_active")
+        }
+
+        if (visibleSlideGallery < elementsGallery.length) {
+            activeBackground = window.getComputedStyle(elementsGallery[visibleSlideGallery]).getPropertyValue('background-image');
+            activeGalleryElement.style.backgroundImage = activeBackground
+            if (visibleSlideGallery === 2) {
+                document.querySelector(".gallery_core_thumbnails").classList.toggle("gallery_core_thumbnails_right")
+            }
+
+            elementsGallery[visibleSlideGallery].classList.add("gallery_core_thumbnails_el_active")
+        }        
+    }
+
+    nextGallery.addEventListener("click", showNextGallery)
+
+
+    const showPrevGallery = () => {
+        elementsGallery[visibleSlideGallery].classList.remove("gallery_core_thumbnails_el_active")
+        visibleSlideGallery -= 1
+        
+        if (visibleSlideGallery < 0) {
+            visibleSlideGallery = elementsGallery.length-1
+            activeBackground = window.getComputedStyle(elementsGallery[visibleSlideGallery]).getPropertyValue('background-image');
+            activeGalleryElement.style.backgroundImage = activeBackground
+            document.querySelector(".gallery_core_thumbnails").classList.toggle("gallery_core_thumbnails_right")
+
+            elementsGallery[visibleSlideGallery].classList.add("gallery_core_thumbnails_el_active")
+        }
+
+        if (visibleSlideGallery >= 0 ) {
+            activeBackground = window.getComputedStyle(elementsGallery[visibleSlideGallery]).getPropertyValue('background-image');
+
+            activeGalleryElement.style.backgroundImage = activeBackground
+
+            if (visibleSlideGallery === 2) {
+                document.querySelector(".gallery_core_thumbnails").classList.toggle("gallery_core_thumbnails_right")
+            }} elementsGallery[visibleSlideGallery].classList.add("gallery_core_thumbnails_el_active")
+    }        
+
+    prevGallery.addEventListener("click", showPrevGallery)
+
+
+
+    for (let i = 0; i < elementsGallery.length; i++ ) {
+        elementsGallery[i].addEventListener("click", () => {
+            elementsGallery[visibleSlideGallery].classList.remove("gallery_core_thumbnails_el_active")
+            visibleSlideGallery = i;
+            activeBackground = window.getComputedStyle(elementsGallery[visibleSlideGallery]).getPropertyValue('background-image');
+
+            activeGalleryElement.style.backgroundImage = activeBackground
+            if (visibleSlideGallery === 2) {
+                document.querySelector(".gallery_core_thumbnails").classList.toggle("gallery_core_thumbnails_right")
+            }
+            if (visibleSlideGallery === 1) {
+                document.querySelector(".gallery_core_thumbnails").classList.remove("gallery_core_thumbnails_right")
+            }
+            if (visibleSlideGallery === 3) {
+                document.querySelector(".gallery_core_thumbnails").classList.add("gallery_core_thumbnails_right")
+            }
+            elementsGallery[visibleSlideGallery].classList.add("gallery_core_thumbnails_el_active")
+        })
+    }
 
 })
