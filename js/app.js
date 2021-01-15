@@ -1,90 +1,152 @@
 document.addEventListener("DOMContentLoaded", function () {
     
-    const prev = document.querySelector(".slider_prev")
-    const next = document.querySelector(".slider_next")
+
+// basic slider
+
+    const prevBasic = document.querySelector(".basic_prev")
+    const nextBasic = document.querySelector(".basic_next")
     
-    const elements = Array.from(document.querySelectorAll(".slider_core_el"))
+    const elementsBasic = Array.from(document.querySelectorAll(".basic_core_el"))
 
-    let visibleSlide = 0;
+    let visibleSlideBasic = 0;
 
-    elements[visibleSlide].classList.add("slider_core_visible");
+    elementsBasic[visibleSlideBasic].classList.add("basic_core_visible");
 
-    const disableNext = () => {
-        next.classList.add("disabled")
+    const disableNextBasic = () => {
+        nextBasic.classList.add("disabled")
     }
 
-    const disablePrev = () => {
-        prev.classList.add("disabled")
+    const disablePrevBasic = () => {
+        prevBasic.classList.add("disabled")
     }
 
-    const enableNext = () => {
-        next.classList.remove("disabled")
+    const enableNextBasic = () => {
+        nextBasic.classList.remove("disabled")
     }
 
-    const enablePrev = () => {
-        prev.classList.remove("disabled")
+    const enablePrevBasic = () => {
+        prevBasic.classList.remove("disabled")
     }
 
 
-    const showNext = () => {
+    const showNextBasic = () => {
 
-        elements[visibleSlide].classList.remove("slider_core_visible");
-        visibleSlide += 1;
+        elementsBasic[visibleSlideBasic].classList.remove("basic_core_visible");
+        visibleSlideBasic += 1;
         
-        if (visibleSlide >= elements.length) {
+        if (visibleSlideBasic >= elementsBasic.length) {
             console.log("no more slides to display")
-            visibleSlide -=1
-            elements[visibleSlide].classList.add("slider_core_visible");
+            visibleSlideBasic -=1
+            elementsBasic[visibleSlideBasic].classList.add("basic_core_visible");
         };
 
-        if (visibleSlide === elements.length-1) {
-            disableNext();
+        if (visibleSlideBasic === elementsBasic.length-1) {
+            disableNextBasic();
         }
 
 
-        if (visibleSlide === 1) {
-            enablePrev();
+        if (visibleSlideBasic === 1) {
+            enablePrevBasic();
         }
 
 
-        if (visibleSlide < elements.length) {
-            elements[visibleSlide].classList.add("slider_core_visible");
+        if (visibleSlideBasic < elementsBasic.length) {
+            elementsBasic[visibleSlideBasic].classList.add("basic_core_visible");
             console.log (
-                visibleSlide + 1 + " slide is visible"
+                visibleSlideBasic + 1 + " slide is visible"
             )
         }    
     }    
 
-    const showPrev = () => {
+    const showPrevBasic = () => {
 
-        elements[visibleSlide].classList.remove("slider_core_visible");
-        visibleSlide -= 1;
+        elementsBasic[visibleSlideBasic].classList.remove("basic_core_visible");
+        visibleSlideBasic -= 1;
         
-        if (visibleSlide < 0) {
+        if (visibleSlideBasic < 0) {
             console.log("no more slides to display")
-            visibleSlide +=1
-            elements[visibleSlide].classList.add("slider_core_visible");
+            visibleSlideBasic +=1
+            elementsBasic[visibleSlideBasic].classList.add("basic_core_visible");
         };
 
-        if (visibleSlide === 0) {
-            disablePrev();
+        if (visibleSlideBasic === 0) {
+            disablePrevBasic();
         }
 
-        if (visibleSlide === elements.length-2) {
-            enableNext();
+        if (visibleSlideBasic === elementsBasic.length-2) {
+            enableNextBasic();
         }
 
-        if (visibleSlide >= 0) {
-            elements[visibleSlide].classList.add("slider_core_visible");
+        if (visibleSlideBasic >= 0) {
+            elementsBasic[visibleSlideBasic].classList.add("basic_core_visible");
             console.log (
-                visibleSlide + 1 + " slide is visible"
+                visibleSlideBasic + 1 + " slide is visible"
             )
         }    
     }   
    
 
-    next.addEventListener("click", showNext)
-    prev.addEventListener("click", showPrev)
+    nextBasic.addEventListener("click", showNextBasic)
+    prevBasic.addEventListener("click", showPrevBasic)
+
+
+// transition slider
+        
+    const prevTransition = document.querySelector(".transition_prev")
+    const nextTransition = document.querySelector(".transition_next")
+    
+    const elementsTransition = Array.from(document.querySelectorAll(".transition_core_el"))
+
+    let visibleSlideTransition = 0;
+    console.log(visibleSlideTransition)
+
+    elementsTransition[visibleSlideTransition].classList.add("transition_core_visible");
+
+
+    const showNextTransition = () => {
+
+        elementsTransition[visibleSlideTransition].classList.remove("transition_core_visible");
+        visibleSlideTransition += 1;
+        console.log(visibleSlideTransition);
+        console.log(elementsTransition[visibleSlideTransition]);
+
+        if (visibleSlideTransition >= elementsTransition.length) {
+            visibleSlideTransition = 0;
+            elementsTransition[visibleSlideTransition].classList.add("transition_core_visible");
+            console.log("od początku")
+
+        };
+
+        if (visibleSlideTransition < elementsTransition.length) {
+            elementsTransition[visibleSlideTransition].classList.add("transition_core_visible");
+            console.log (
+                visibleSlideTransition + 1 + " slide is visible"
+            )
+
+        }    
+    }    
+
+    const showPrevTransition = () => {
+
+        elementsTransition[visibleSlideTransition].classList.remove("transition_core_visible");
+        visibleSlideTransition -= 1;
+        
+        if (visibleSlideTransition < 0) {
+            visibleSlideTransition = elementsTransition.length -1
+            elementsTransition[visibleSlideTransition].classList.add("transition_core_visible");
+        };
+
+        if (visibleSlideTransition >= 0) {
+            elementsTransition[visibleSlideTransition].classList.add("transition_core_visible");
+            console.log (
+                visibleSlideTransition + 1 + " slide is visible"
+            )
+        }    
+    }   
+   
+
+    nextTransition.addEventListener("click", showNextTransition)
+    prevTransition.addEventListener("click", showPrevTransition)
 
 
 })
